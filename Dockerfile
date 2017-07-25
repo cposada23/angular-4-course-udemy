@@ -12,7 +12,8 @@ WORKDIR $APP_PATH
 # Copio el package.json
 ADD package.json .
 
-RUN npm install -g npm-check-updates && ncu -u && ncu -a
+# RUN npm install -g npm-check-updates && ncu -u && ncu -a
+# RUN npm uninstall -g npm-check-updates
 # Instalo las dependencias
 RUN npm install
 # Añado la aplicación
@@ -31,6 +32,6 @@ RUN ng build --aot --prod \
     && npm cache clean \
     && apk del nodejs libstdc++ libgcc libuv http-parser ca-certificates \
     # Remuevo el codigo inicial de la app
-    && rm -rf ./*
+    && rm -rf /$APP_PATH
 #inicio nginx
 CMD ["nginx", "-g", "daemon off;"]
